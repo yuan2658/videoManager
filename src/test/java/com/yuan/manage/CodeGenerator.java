@@ -11,15 +11,15 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
  */
 public class CodeGenerator {
     // 数据库连接配置
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/easyweb-shiro";
+    private static final String DB_URL = "jdbc:mysql://101.200.35.237:3306/easyweb-shiro";
     private static final String DB_USERNAME = "root";
     private static final String DB_PASSWORD = "123456";
     // 数据库表前缀
     private static final String[] TB_PREFIX = new String[]{"sys_", "tb_"};
     // 输出位置
     private static final String OUTPUT_DIR = "d:\\codeGen";
-    private static final String PACKAGE_NAME = "com.yuan.manage.system";
-    private static final String[] TABLE_NAMES = {"sys_user","sys_role"};
+    private static final String PACKAGE_NAME = "com.yuan.manage.video";
+    private static final String[] TABLE_NAMES = {"tb_video"};
 
 
     public static void main(String[] args) {
