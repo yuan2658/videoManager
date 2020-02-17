@@ -56,6 +56,16 @@ public class VideoController {
     }
 
 
+    @RequestMapping("/detail")
+    public String detail(String id,Model model) {
+        Video video = videoService.getById(id);
+        model.addAttribute("video",video);
+        return "video/video.html";
+    }
+
+
+
+
 
 
 

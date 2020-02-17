@@ -48,12 +48,13 @@
 <!-- js部分 -->
 <% include("../layout/js.html"){} %>
 <script>
-    layui.use(['layer', 'form', 'table', 'util', 'laydate', 'tableX'], function () {
+    layui.use(['layer', 'form', 'table', 'util', 'laydate', 'tableX','index'], function () {
         var $ = layui.jquery;
         var form = layui.form;
         var table = layui.table;
         var util = layui.util;
         var tableX = layui.tableX;
+        var index = layui.index;
 
         // 渲染表格
         var insTb = tableX.render({
@@ -66,12 +67,6 @@
                 {field: 'name', title: '名称', sort: true},
                 {field: 'type', title: '类别', sort: true},
                 {field: 'url', title: '路径', sort: true},
-
-                // {
-                //     templet: function (e) {
-                //         return "<a href='" + e.url + "' />";
-                //     }, title: '路径'
-                // },
                 {align: 'center', toolbar: '#tableBar', title: '操作', width: 200, minWidth: 200}
             ]]
         });
@@ -85,12 +80,18 @@
 
         // 工具条点击事件
         table.on('tool(videoTable)', function (obj) {
-            var data = obj.id;
+            var data = obj.data.id;
             showEditModel(data);
         });
 
         function showEditModel(data) {
-            alert(data.id);
+            index.openTab({
+                title: '播放',
+                url: 'video/detail?id='+data,
+                end: function() {
+                    // insTb.reload();
+                }
+            });
         }
 
     });
