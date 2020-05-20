@@ -40,6 +40,7 @@ public class ShiroConfig {
         filterChainDefinitions.put("/druid/**", "anon");
         filterChainDefinitions.put("/api/**", "anon");  // 接口排除拦截
         filterChainDefinitions.put("/login", "anon");
+        filterChainDefinitions.put("/reg", "anon");
         filterChainDefinitions.put("/logout", "logout");
         filterChainDefinitions.put("/**", "mlfc,authc");
         shiroFilter.setFilterChainDefinitionMap(filterChainDefinitions);

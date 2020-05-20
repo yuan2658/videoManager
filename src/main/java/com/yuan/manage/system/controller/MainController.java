@@ -1,14 +1,18 @@
 package com.yuan.manage.system.controller;
 
+import com.google.common.collect.Lists;
 import com.wf.captcha.utils.CaptchaUtil;
 import com.yuan.manage.common.BaseController;
 import com.yuan.manage.common.JsonResult;
+import com.yuan.manage.common.shiro.EndecryptUtil;
 import com.yuan.manage.common.utils.StringUtil;
 import com.yuan.manage.common.utils.UserAgentGetter;
 import com.yuan.manage.system.model.Authorities;
 import com.yuan.manage.system.model.LoginRecord;
+import com.yuan.manage.system.model.User;
 import com.yuan.manage.system.service.AuthoritiesService;
 import com.yuan.manage.system.service.LoginRecordService;
+import com.yuan.manage.system.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +38,8 @@ public class MainController extends BaseController implements ErrorController {
     private AuthoritiesService authoritiesService;
     @Autowired
     private LoginRecordService loginRecordService;
+    @Autowired
+    private UserService userService;
 
     /**
      * 主页
@@ -62,11 +68,47 @@ public class MainController extends BaseController implements ErrorController {
     }
 
     /**
+     * 登录页
+     */
+    @GetMapping("/reg")
+    public String reg() {
+        return "reg.html";
+    }
+
+    /**
+     * 注册
+     * @return
+     */
+    @PostMapping("reg")
+    @ResponseBody
+    public JsonResult reg(String username, String password,String code, HttpServletRequest request){
+        if (StringUtil.isBlank(username, password)) {
+            return JsonResult.error("账号或密码不能为空");
+        }
+        if (!CaptchaUtil.ver(code, request)) {
+            // CaptchaUtil.clear(request);
+            return JsonResult.error("验证码不正确");
+        }
+        User user = new User();
+        user.setPassword(EndecryptUtil.encrytMd5(password, 3));
+        user.setUsername(username);
+        user.setNickName(username);
+        user.setState(0);
+        List<Integer> stringList = Lists.newArrayList();
+        stringList.add(3);
+        userService.addUser(user,stringList);
+        return JsonResult.ok("200");
+    }
+
+    /**
      * 登录
      */
     @ResponseBody
     @PostMapping("/login")
     public JsonResult doLogin(String username, String password, String code, HttpServletRequest request) {
+        if("test".equals(username)){
+            return JsonResult.error("系统升级，原账号已失效请自行注册");
+        }
         if (StringUtil.isBlank(username, password)) {
             return JsonResult.error("账号或密码不能为空");
         }

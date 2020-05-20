@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author wangfan
@@ -26,6 +26,16 @@ public class Video implements Serializable {
     private String name;
 
     private String tag;
+
+    private String source;
+
+    private String year;
+
+    private String month;
+
+    private String day;
+
+
 
     public Integer getId() {
         return id;
@@ -67,14 +77,50 @@ public class Video implements Serializable {
         this.tag = tag;
     }
 
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
     @Override
     public String toString() {
         return "Video{" +
-        ", id=" + id +
-        ", type=" + type +
-        ", url=" + url +
-        ", name=" + name +
-        ", tag=" + tag +
-        "}";
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", url='" + url + '\'' +
+                ", name='" + name + '\'' +
+                ", tag='" + tag + '\'' +
+                ", source='" + source + '\'' +
+                ", year='" + year + '\'' +
+                ", month='" + month + '\'' +
+                ", day='" + day + '\'' +
+                '}';
     }
 }
